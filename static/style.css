@@ -1,0 +1,101 @@
+:root {
+    --bg-color: #121212;
+    --text-color: #e0e0e0;
+    --primary-green: #00e676;
+    --primary-green-dim: #00b359;
+    --error-red: #ff5252;
+    --status-online: #00e676;
+    --status-offline: #757575;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden; /* Fixed viewport */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 1024px;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    box-sizing: border-box;
+    /* border: 1px solid #333; Debug border */
+}
+
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+}
+
+h1 {
+    font-size: 2em;
+    margin: 0;
+}
+
+.status {
+    font-weight: bold;
+    padding: 5px 15px;
+    border-radius: 5px;
+    background: #333;
+}
+
+.status.online { color: var(--status-online); border: 1px solid var(--status-online); }
+.status.offline { color: var(--status-offline); border: 1px solid var(--status-offline); }
+
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.feed-button {
+    width: 300px;
+    height: 150px;
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #000;
+    background-color: var(--primary-green);
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(0, 230, 118, 0.4);
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+}
+
+.feed-button:active {
+    transform: scale(0.95);
+    background-color: var(--primary-green-dim);
+}
+
+.feed-button:disabled {
+    background-color: #555;
+    color: #888;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+#message-area {
+    height: 30px;
+    font-size: 1.2em;
+    color: var(--text-color);
+}

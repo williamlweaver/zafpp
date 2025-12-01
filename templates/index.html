@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZAF++ Control</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>ZAF++ Control</h1>
+            <div id="status-indicator" class="status offline">OFFLINE</div>
+        </div>
+
+        <div class="main-content">
+            <button id="feed-btn" class="feed-button">FEED NOW</button>
+            <div id="message-area"></div>
+        </div>
+    </div>
+
+    <script>
+        const feedBtn = document.getElementById('feed-btn');
+        const statusInd = document.getElementById('status-indicator');
+        const msgArea = document.getElementById('message-area');
+
+        // Check Status
+        async function checkStatus() {
+            try {
+                const response = await fetch('/status');
+                const data = await response.json();
+                statusInd.textContent = data.status;
+                statusInd.className = 'status ' + (data.status === 'ONLINE' ? 'online' : 'offline');
+            } catch (e) {
+                statusInd.textContent = 'ERROR';
+                statusInd.className = 'status offline';
+            }
+        }
+
+        // Poll status every 5 seconds
+        setInterval(checkStatus, 5000);
+        checkStatus();
+
+        // Feed Button Logic
+        feedBtn.addEventListener('click', async () => {
+            if (feedBtn.disabled) return;
+
+            // Cooldown & UI Feedback
+            feedBtn.disabled = true;
+            const originalText = feedBtn.textContent;
+            feedBtn.textContent = "Feeding...";
+            feedBtn.classList.add('active');
+
+            try {
+                const response = await fetch('/feed', { method: 'POST' });
+                const data = await response.json();
+                
+                if (data.status === 'success' || data.status === 'simulated') {
+                    msgArea.textContent = "Feeding sequence initiated.";
+                    setTimeout(() => msgArea.textContent = "", 3000);
+                } else {
+                    msgArea.textContent = "Error: " + data.message;
+                }
+            } catch (e) {
+                msgArea.textContent = "Network Error";
+            }
+
+            // 5 Second Cooldown
+            setTimeout(() => {
+                feedBtn.disabled = false;
+                feedBtn.textContent = originalText;
+                feedBtn.classList.remove('active');
+            }, 5000);
+        });
+    </script>
+</body>
+</html>
