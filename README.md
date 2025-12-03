@@ -1,5 +1,16 @@
 # Zebrafish Automated Feeder Plus Plus (ZAF++) - SAIL Lab Instrument Control
 
+# ⚠️ MOVED TO GITLAB ⚠️
+
+**As of December 2, 2025, this repository has migrated.**
+
+Future development for the ZAF++ project (SAIL Team) is continuing at our new home:
+👉 **[https://gitlab.com/umes-sail/zafpp](https://gitlab.com/umes-sail/zafpp)**
+
+Please update your bookmarks and clones. The code in this repository is now archived and will not receive updates.
+
+---
+
 ## System Architecture
 
 The ZAF++ system is designed as a modular instrument for automated zebrafish husbandry.
